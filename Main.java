@@ -12,8 +12,8 @@ public class Main {
         do {
             System.out.println("Silahkan Login");
             System.out.println("=======LOGIN=======");
-            System.out.println("masukkan username :");user = scanner.nextLine();
-            System.out.println("masukkan password :");password = scanner.nextLine();
+            System.out.print("masukkan username : ");user = scanner.nextLine();
+            System.out.print("masukkan password : ");password = scanner.nextLine();
             System.out.println("===================");
 
             if (user.equals(user1.getUsername_user()) && password.equals(user1.getPassword_user()) || user.equals(user1.getUsername_admin()) && password.equals(user1.getPassword_admin())) {
