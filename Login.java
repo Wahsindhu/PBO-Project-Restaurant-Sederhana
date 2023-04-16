@@ -41,4 +41,12 @@ public class Login {
     public void setPassword_admin(String password_admin) {
         this.password_admin = password_admin;
     }
+
+    public boolean login(String username, String password) {
+        return false;
+    }
+
+    public boolean isAdmin(String username) {
+        return false;
+    }
 }
