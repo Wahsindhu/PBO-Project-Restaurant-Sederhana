@@ -1,4 +1,4 @@
-package Mystore;
+    package Mystore;
 
 public class Login {
     private String username_user, password_user, username_admin, password_admin; //adalah sebuah vaariable untuk login
