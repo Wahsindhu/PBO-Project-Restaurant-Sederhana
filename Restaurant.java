@@ -1,44 +1,124 @@
 package Mystore;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Restaurant {
     private String name;
-    private ArrayList<Menu> menus;
+    private ArrayList<String> menus;
+    private ArrayList<Double> price;
+    private static Scanner scanner = new Scanner(System.in);
 
     public Restaurant() {
         this.name = name;
-        menus = new ArrayList<>();
+        this.menus = menus;
+        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public void addMenu(Menu menu) {
-        menus.add(menu);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void removeMenu(int index) {
-        menus.remove(index);
+    public ArrayList<String> getMenus() {
+        return menus;
     }
 
-    public void viewMenu() {
-        System.out.println("Daftar Menu Restoran " + name);
-        System.out.println("------------------------------");
-        for (int i = 0; i < menus.size(); i++) {
-            System.out.println((i+1) + ". " + menus.get(i).getName() + " - Rp. " + menus.get(i).getPrice());
+    public void setMenus(ArrayList<String> menus) {
+        this.menus = menus;
+    }
+
+    public ArrayList<Double> getPrice() {
+        return price;
+    }
+
+    public void setPrice(ArrayList<Double> price) {
+        this.price = price;
+    }
+//fungsi dari admin
+    public static void addRestaurant(ArrayList<Restaurant> restaurants) {
+        System.out.print("Masukkan nama restaurant : ");
+        String name = scanner.nextLine();
+
+        Restaurant newRestaurant = new Restaurant();
+        newRestaurant.setName(name);
+
+        ArrayList<String> menus = new ArrayList<>();
+        ArrayList<Double> prices = new ArrayList<>();
+
+        boolean continueAddingMenu = true;
+        while (continueAddingMenu) {
+            System.out.print("Masukkan menu : ");
+            String menu = scanner.nextLine();
+            menus.add(menu);
+
+            System.out.print("Harga : ");
+            Double price = scanner.nextDouble();
+            prices.add(price);
+
+            scanner.nextLine();
+
+            System.out.print("Tambah menu baru? (y/n): ");
+            String answer = scanner.nextLine();
+            continueAddingMenu = answer.equalsIgnoreCase("y");
         }
-        System.out.println("------------------------------");
+
+        newRestaurant.setMenus(menus);
+        newRestaurant.setPrice(prices);
+
+        restaurants.add(newRestaurant);
+        System.out.println("Berhasil menambah restaurant.");
     }
 
-    public void viewRestaurant() {
+    public static void deleteRestaurant(ArrayList<Restaurant> restaurants) {
+        System.out.print("Masukkan nama restaurant yang ingin dihapus : ");
+        String nameToDelete = scanner.nextLine();
+
+        for (int i = 0; i < restaurants.size(); i++) {
+            Restaurant restaurant = restaurants.get(i);
+            if (restaurant.getName().equalsIgnoreCase(nameToDelete)) {
+                restaurants.remove(i);
+                System.out.println("Restaurant berhasil dihapus.");
+                return;
+            }
+        }
+
+        System.out.println("Restaurant tidak ditemukan.");
     }
 
-    public void addRestaurant() {
+    public static void showRestaurants(ArrayList<Restaurant> restaurants) {
+        System.out.println("List of restaurants:");
+
+        for (Restaurant restaurant : restaurants) {
+            System.out.println("- " + restaurant.getName());
+        }
+    }
+    //fungsi customer
+    public void showMenu() {
+        System.out.println("Daftar menu di " + this.getName() + ":");
+
+        for (int i = 0; i < menus.size(); i++) {
+            System.out.println("- " + menus.get(i) + " : Rp " + price.get(i));
+        }
+    }
+    public double calculateTotal(ArrayList<String> selectedMenus) {
+        double total = 0;
+
+        for (String selectedMenu : selectedMenus) {
+            int index = menus.indexOf(selectedMenu);
+            if (index != -1) {
+                total += price.get(index);
+            }
+        }
+
+        return total;
+    }
+    public boolean hasMenu(String menuName) {
+        return menus.contains(menuName);
     }
 
-    public void removeRestaurant() {
-    }
 }
 
